@@ -20,11 +20,14 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 //routers
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
+const taskRouter_1 = __importDefault(require("./routes/taskRouter"));
 //middleware
 const notFound_1 = __importDefault(require("./middleware/notFound"));
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
+const authUser_1 = __importDefault(require("./middleware/authUser"));
 app.use(express_1.default.json());
 app.use('/api/auth', authRouter_1.default);
+app.use('/api/tasks', authUser_1.default, taskRouter_1.default);
 app.get('/', (req, res) => {
     return res.send('Hello World');
 });

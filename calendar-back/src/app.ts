@@ -7,13 +7,16 @@ const app = express();
 
 //routers
 import authRouter from './routes/authRouter';
+import taskRouter from './routes/taskRouter';
 
 //middleware
 import notFoundMiddleware from './middleware/notFound';
 import errorHandlerMiddleware from './middleware/errorHandler';
+import authUser from './middleware/authUser';
 
 app.use(express.json());
 app.use('/api/auth', authRouter);
+app.use('/api/tasks', authUser, taskRouter);
 
 app.get('/', (req: Request, res: Response) => {
     return res.send('Hello World');
